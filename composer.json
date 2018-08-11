@@ -1,0 +1,30 @@
+{
+    "name": "azrael/cms",
+    "version": "1.0.0",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Justin Jordan",
+            "email": "jsxule@gmail.com"
+        }
+    ],
+    "require": {
+        "azrael/framework": "^1.0",
+        "twig/twig": "^2.0"
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "azrael"
+        },
+        {
+            "type": "path",
+            "url": "azraelcms"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Azrael\\CMS\\": "src/"
+        }
+    }
+}
