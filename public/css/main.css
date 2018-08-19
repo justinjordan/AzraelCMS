@@ -1,0 +1,58 @@
+body {
+    background-color: #ccc;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    margin: 1.2em 0;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+p {
+    line-height: 150%;
+}
+
+#sidebar .logo-wrapper
+{
+    padding: 2em 0;
+    text-align: center;
+}
+#sidebar .logo-wrapper .logo
+{
+    width: 10em;
+    height: auto;
+}
+
+#main-wrapper {
+    position: absolute;
+    top: 0;
+    width: calc(100% - 300px);
+    min-height: 100vh;
+    margin-left: 300px;
+    margin-right: 0;
+    background-color: #efefef;
+}
+
+main {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    min-height: 100%;
+}
+
+#navbar {
+    display: none;
+}
+
+@media only screen and (max-width : 992px) {
+    #navbar {
+        display: block;
+    }
+    #main-wrapper {
+        width: 100%;
+        margin: 64px 0 0;
+    }
+}

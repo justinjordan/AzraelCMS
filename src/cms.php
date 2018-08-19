@@ -5,6 +5,7 @@ use Azrael\Routing\Router;
 use Azrael\Routing\Controller;
 use Azrael\CMS\Controller\AdminSide;
 use Azrael\CMS\Controller\PublicSide;
+use Azrael\Hooks;
 
 class CMS
 {

@@ -1,0 +1,15 @@
+{% extends 'main.twig' %}
+
+{% block head %}
+    <link href="/cms-assets/css/pages.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    {{ source('pages/main.vue') }}
+{% endblock %}
+
+{% block footer %}
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="//unpkg.com/unfetch/dist/unfetch.umd.js"></script>
+    <script src="/cms-assets/js/pages.js"></script>
+{% endblock %}
