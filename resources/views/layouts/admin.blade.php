@@ -5,24 +5,21 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Azrael CMS</title>
 
         <!-- Reset Styles -->
-        <link href="/cms-assets/css/reset.css" rel="stylesheet">
+        <link href="/css/reset.css" rel="stylesheet">
 
         <!-- Include Material -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
-        <!-- Include Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans" rel="stylesheet">
-
-        <!-- Include Custom Styles -->
-        <link href="/cms-assets/css/main.css" rel="stylesheet">
-
+        <!-- Include Compiled Styles -->
+        <link href="/css/app.css" rel="stylesheet">
+        
         @yield('head')
     </head>
     <body>
@@ -35,7 +32,7 @@
         </div>
         <ul id="sidebar" class="sidenav sidenav-fixed">
             <li>
-                <figure class="logo-wrapper"><img class="logo" src="/cms-assets/images/logo.svg" /></figure>
+                <figure class="logo-wrapper"><img class="logo" src="/images/logo.svg" /></figure>
             </li>
             @foreach ($adminPanel->navigation as $item)
                 <li class="{{ $item->isActive() ? 'active' : '' }}">
@@ -61,6 +58,8 @@
                 var instances = M.Sidenav.init(elems);
             });
         </script>
+
+        <script src="/js/app.js"></script>
 
         @yield('footer')
     </body>

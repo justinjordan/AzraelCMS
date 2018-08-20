@@ -1,5 +1,5 @@
 @extends('layouts.admin')
 
 @section('content')
-    Dashboard goes here
+    Settings goes here
 @endsection

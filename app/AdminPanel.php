@@ -21,7 +21,7 @@ class AdminPanel
     {
         $navigation = [];
 
-        $navigation[] = new NavigationItem('/admin', 'Dashboard', 'dashboard');
+        $navigation[] = new NavigationItem('/admin/dashboard', 'Dashboard', 'dashboard');
         $navigation[] = new NavigationItem('/admin/pages', 'Pages', 'description');
         $navigation[] = new NavigationItem('/admin/settings', 'Settings', 'settings');
 
