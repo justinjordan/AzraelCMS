@@ -1,12 +1,12 @@
 <template>
-    <div class="content-inner-wrapper">
+    <div class="content">
         <h1>Pages</h1>
 
         <div class="actions">
             <a href="/admin/pages/new" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         </div>
 
-        <div class="content">
+        <div class="content__inner-wrap">
             <table>
                 <thead>
                     <tr>
@@ -53,13 +53,11 @@
 
 <style>
     h1 {
-        margin: 2rem 2rem;
+        margin-left: 2rem;
     }
 
-    .content {
-        position: absolute;
+    .content__inner-wrap {
         min-height: 100vh;
-        top: 6rem; right: 0; left: 0;
         padding: 2rem;
         background-color: #fff;
         border-top: 1px solid #ccc;

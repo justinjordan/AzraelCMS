@@ -18,7 +18,7 @@ Route::prefix('admin')->group(function () {
     /**
      * Dashboard
      */
-    Route::redirect('/', '/dashboard', 301);
+    Route::redirect('/', '/admin/dashboard');
     Route::get('/dashboard', function () {
         return view('dashboard');
     });
@@ -48,9 +48,9 @@ Route::prefix('admin')->group(function () {
 /**
  * Public-Side Catch-All
  */
-Route::fallback(function ($output = null) {
-    /**
-     * TODO: Create public-side pages router
-     */
-    return $output;
-});
+// Route::fallback(function ($output = null) {
+//     /**
+//      * TODO: Create public-side router
+//      */
+//     return $output;
+// });

@@ -9,7 +9,7 @@
 
         <title>Azrael CMS</title>
 
-        <!-- Reset Styles -->
+        <!-- Reset Styles - Loads first -->
         <link href="/css/reset.css" rel="stylesheet">
 
         <!-- Include Material -->
@@ -45,7 +45,7 @@
                 </li>
             @endforeach
         </ul>
-        <div id="main-wrapper" class="container">
+        <div id="main-wrapper">
             <main>@yield('content')</main>
         </div>
 
