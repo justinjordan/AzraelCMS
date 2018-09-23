@@ -22,7 +22,7 @@
                         </tr>
                     </template>
                     <template v-else>
-                        <tr v-for="page in pages">
+                        <tr v-for="page in pages" v-bind:key="page.id">
                             <td><a :href="'/admin/pages/edit/' + page.id">{{ page.name }}</a></td>
                             <td>{{ page.type }}</td>
                             <td>{{ page.status }}</td>

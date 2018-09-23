@@ -3,7 +3,9 @@
  * Include Dependencies
  */
 window.Vue = require('vue');
-// require('./bootstrap');
+if (typeof window.fetch !== 'function') {
+    window.fetch = require('./fetch');
+}
 
 /**
  * Setup Vue.js Components
