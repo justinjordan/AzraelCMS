@@ -1,56 +1,24 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/**
- * Admin-Side Routes
- */
+// admin side routes
 Route::prefix('admin')->group(function () {
-    /**
-     * Dashboard
-     */
+    // Default page: Dashboard
     Route::redirect('/', '/admin/dashboard');
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    });
 
-    /**
-     * Pages
-     */
-    Route::get('/pages', function () {
-        return view('pages');
-    });
+    // Setup routes
+    Route::resources([
+        '/dashboard'    => 'Admin\DashboardController',
+        '/pages'        => 'Admin\PagesController',
+        '/settings'     => 'Admin\SettingsController',
+    ]);
 
-    /**
-     * Settings
-     */
-    Route::get('/settings', function () {
-        return view('settings');
-    });
-
-    /**
-     * Abort to prevent showing Public-Side
-     */
+    // Abort to prevent showing Public-Side
     Route::fallback(function ($uri = null) {
         return abort(404);
     });
 });
 
-/**
- * Public-Side Catch-All
- */
-// Route::fallback(function ($output = null) {
-//     /**
-//      * TODO: Create public-side router
-//      */
-//     return $output;
-// });
+// public side catch all
+Route::fallback(function ($output = null) {
+    return abort(404);
+});

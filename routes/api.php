@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\AdminPanel\Pages\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +13,7 @@ use App\AdminPanel\Pages\Api;
 |
 */
 
-Route::get('/pages/{action?}', function ($action = '') {
-    // return response()->json(Api->getPages());
-    return response()->json([
-        'success'   => false,
-        'error'     => "API is not done."
-    ]);
-});
+Route::apiResources([
+    '/admin/pages'                  => 'Admin\API\PagesAPI',
+    '/admin/settings/categories'    => 'Admin\API\Settings\CategoryAPI',
+]);
