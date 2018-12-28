@@ -10,4 +10,15 @@ class SettingsController extends Controller
     {
         return view('settings');
     }
+
+    public function show(string $slug)
+    {
+        $view = 'settings.'.$slug;
+
+        if (!view()->exists($view)) {
+            return abort(404);
+        }
+
+        return view($view);
+    }
 }

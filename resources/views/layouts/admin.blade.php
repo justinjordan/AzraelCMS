@@ -8,6 +8,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>Azrael CMS</title>
+        <link rel="icon" href="/images/logo.png">
 
         <!-- Reset Styles - Loads first -->
         <link href="/css/reset.css" rel="stylesheet">
@@ -46,7 +47,12 @@
             @endforeach
         </ul>
         <div id="main-wrapper">
-            <main>@yield('content')</main>
+            <main>
+                <!-- breadcrumbs -->
+                @include('snippets.breadcrumbs')
+
+                @yield('content')
+            </main>
         </div>
 
         <script>
@@ -59,8 +65,8 @@
             });
         </script>
 
-        <script src="/js/app.js"></script>
 
-        @yield('footer')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
+        <script src="/js/app.js"></script>
     </body>
 </html>

@@ -7,9 +7,16 @@ Route::prefix('admin')->group(function () {
 
     // Setup routes
     Route::resources([
-        '/dashboard'    => 'Admin\DashboardController',
-        '/pages'        => 'Admin\PagesController',
-        '/settings'     => 'Admin\SettingsController',
+        '/dashboard' =>
+            'Admin\DashboardController',
+        '/pages' =>
+            'Admin\PagesController',
+        '/settings/templates' =>
+            'Admin\Settings\TemplatesController',
+        '/settings' =>
+            'Admin\SettingsController',
+        '/settings/templates/edit/{id}' =>
+            'Admin\Settings\Templates\EditController',
     ]);
 
     // Abort to prevent showing Public-Side

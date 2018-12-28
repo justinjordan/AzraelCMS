@@ -5,10 +5,13 @@
         [
             'label' => 'Settings',
             'href'  => '/admin/settings',
-        ]
+        ],
+        [
+            'label' => 'Templates',
+            'href'  => '/admin/settings/templates',
+        ],
     ]);
 @endphp
 
 @section('content')
-    <settings-panel></settings-panel>
 @endsection

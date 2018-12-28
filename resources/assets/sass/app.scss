@@ -6,6 +6,12 @@
 // Variables
 @import 'variables';
 
+.noscroll {
+    margin: 0;
+    height: 100%;
+    overflow: hidden
+}
+
 body {
     background-color: #ccc;
     font-family: 'Open Sans', sans-serif;
@@ -27,13 +33,17 @@ p {
 }
 
 #sidebar .logo-wrapper {
-    padding: 2em 0;
+    padding: 0.5rem 0;
     text-align: center;
 }
 
 #sidebar .logo-wrapper .logo {
     width: 10em;
     height: auto;
+}
+
+.breadcrumbs-nav {
+    padding-left: 2rem;
 }
 
 #main-wrapper {
