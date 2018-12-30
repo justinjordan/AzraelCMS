@@ -36,14 +36,18 @@
                 <figure class="logo-wrapper"><img class="logo" src="/images/logo.svg" /></figure>
             </li>
             @foreach ($adminPanel->navigation as $item)
-                <li class="{{ $item->isActive() ? 'active' : '' }}">
-                    <a href="{{ $item->href }}">
-                        @if ($item->icon)
-                            <i class="material-icons">{{ $item->icon }}</i>
-                        @endif
-                        <span>{{ $item->label }}</span>
-                    </a>
-                </li>
+                @if ($item instanceof App\Models\NavigationItem)
+                    <li class="{{ $item->isActive() ? 'active' : '' }}">
+                        <a href="{{ $item->href }}">
+                            @if ($item->icon)
+                                <i class="material-icons">{{ $item->icon }}</i>
+                            @endif
+                            <span>{{ $item->label }}</span>
+                        </a>
+                    </li>
+                @elseif ($item instanceof App\Models\NavigationDivider)
+                    <li><div class="divider"></div></li>
+                @endif
             @endforeach
         </ul>
         <div id="main-wrapper">
@@ -57,6 +61,13 @@
 
         <script>
             /**
+             * Pass access token
+             */
+            window.user = {
+                accessToken: "{{ session('accessToken', '') }}"
+            };
+
+            /**
              * Setup Materialize Sidenav
              */
             document.addEventListener('DOMContentLoaded', function() {
@@ -64,7 +75,6 @@
                 var instances = M.Sidenav.init(elems);
             });
         </script>
-
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
         <script src="/js/app.js"></script>

@@ -13,7 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::apiResources([
-    '/admin/pages'                  => 'Admin\API\PagesAPI',
-    '/admin/settings/categories'    => 'Admin\API\Settings\CategoryAPI',
-]);
+Route::group([
+    'namespace'     => 'Admin\API',
+    'prefix'        => 'admin',
+    'middleware'    => [
+        'auth:api',
+        'scopes:admin-access',
+    ],
+], function () {
+    Route::apiResources([
+        '/pages' => 'PagesAPI',
+        '/settings/categories'  => 'Settings\CategoryAPI',
+    ]);
+});

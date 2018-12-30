@@ -1,4 +1,14 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Nunito+Sans);@import url(https://fonts.googleapis.com/css?family=Open+Sans);.noscroll {
+@import url(https://fonts.googleapis.com/css?family=Nunito);@import url(https://fonts.googleapis.com/css?family=Nunito+Sans);@import url(https://fonts.googleapis.com/css?family=Open+Sans);.login-form {
+  max-width: 400px;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.noscroll {
   margin: 0;
   height: 100%;
   overflow: hidden;

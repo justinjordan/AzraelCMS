@@ -13,6 +13,7 @@
         </div>
         
         <ul v-if="!loading">
+            <p class="error" v-if="error">{{ error }}</p>
             <li class="category" v-for="(category, i) in categories" :key="i">
                 <a class="category__btn" :href="category.href">
                     <div class="category__icon">
@@ -26,17 +27,29 @@
 </template>
 
 <script>
-    import Settings from '../providers/settings.js';
+    import axios from 'axios'
+    import Settings from '../providers/settings.js'
 
     export default {
         created() {
-            Settings.getCategories().then(cats => {
-                this.categories = cats
-                this.loading = false
+            axios.get('/api/admin/settings/categories', {
+                headers: {
+                    'Authorization': 'Bearer ' + user.accessToken
+                }
             })
+                .then(response => {
+                    this.categories = response.data
+                })
+                .catch(err => {
+                    this.error = 'API Error: ' + err.message
+                })
+                .finally(() => {
+                    this.loading = false
+                })
         },
         data() {
             return {
+                error: null,
                 loading: true,
                 categories: []
             }

@@ -12,11 +12,36 @@
                 <button type="button" class="btn-flat modal-close right">
                     <i class="material-icons">close</i>
                 </button>
+
                 <h4>Editor Settings</h4>
-                <p>settings go here</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="waves-effect waves-green btn-flat">Save</button>
+
+                <h5>Theme</h5>
+                <p>
+                    <label>
+                        <input type="radio" v-model="editorOptions.theme" value="default" checked />
+                        <span>Light</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" v-model="editorOptions.theme" value="dracula" />
+                        <span>Dark</span>
+                    </label>
+                </p>
+
+                <h5>Key Map</h5>
+                <p>
+                    <label>
+                        <input type="radio" v-model="editorOptions.keyMap" value="default" checked />
+                        <span>Normal</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="radio" v-model="editorOptions.keyMap" value="vim" />
+                        <span>Vim</span>
+                    </label>
+                </p>
             </div>
         </div>
     </div>
@@ -35,6 +60,10 @@
             M.Modal.init(modalEl, {})
             this.settingsModal = M.Modal.getInstance(modalEl)
 
+            // init inputs
+            const inputEls = modalEl.querySelectorAll('select');
+            M.FormSelect.init(inputEls, {});
+
             this.codemirror.save = () => {
                 const toast = M.toast({html: 'Saving...'})
 
@@ -51,8 +80,8 @@
                     // codemirror options
                     tabSize: 2,
                     mode: 'text/html',
-                    theme: 'dracula',
-                    keyMap: 'vim',
+                    theme: 'default',
+                    keyMap: 'default',
                     line: true,
                     lineNumbers: true,
                 }

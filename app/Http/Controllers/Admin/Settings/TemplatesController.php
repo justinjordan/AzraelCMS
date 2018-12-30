@@ -11,9 +11,13 @@ class TemplatesController extends Controller
         return view('settings.templates');
     }
 
-    public function show()
+    public function show($id)
     {
-        // redirect to index
-        return redirect('/admin/settings/templates');
+        return redirect('/admin/settings/templates/'.$id.'/edit');
+    }
+
+    public function edit($id)
+    {
+        return view('settings.templates.edit');
     }
 }

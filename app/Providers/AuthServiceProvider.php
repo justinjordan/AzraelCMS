@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Laravel\Passport\Passport;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -25,6 +26,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Passport::routes();
+        Passport::personalAccessClientId(1);
+
+        Passport::tokensCan([
+            'profile'        => 'Edit personal profile',
+            'settings'       => 'Change personal settings',
+            'admin-access'   => 'View the admin panel',
+            'admin-settings' => 'Change admin settings',
+        ]);
     }
 }

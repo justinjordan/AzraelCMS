@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\NavigationItem;
+use App\Models\NavigationDivider;
 
 class AdminPanel
 {
@@ -24,6 +25,8 @@ class AdminPanel
         $navigation[] = new NavigationItem('/admin/dashboard', 'Dashboard', 'dashboard');
         $navigation[] = new NavigationItem('/admin/pages', 'Pages', 'description');
         $navigation[] = new NavigationItem('/admin/settings', 'Settings', 'settings');
+        $navigation[] = new NavigationDivider();
+        $navigation[] = new NavigationItem('/admin/signout', 'Sign Out', 'exit_to_app');
 
         return $navigation;
     }

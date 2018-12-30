@@ -1,25 +1,31 @@
 <?php
 
+Route::get('/admin/signin', 'Admin\LoginController@index')->name('login');
+Route::post('/admin/signin', 'Admin\LoginController@submit');
+Route::get('/admin/signout', 'Admin\LoginController@logout');
+
 // admin side routes
-Route::prefix('admin')->group(function () {
-    // Default page: Dashboard
-    Route::redirect('/', '/admin/dashboard');
+Route::group([
+    'namespace'     => 'Admin',
+    'prefix'        => 'admin',
+    'middleware'    => 'auth',
+], function () {
+    // redirect to dashboard
+    Route::redirect('/', '/dashboard');
 
-    // Setup routes
-    Route::resources([
-        '/dashboard' =>
-            'Admin\DashboardController',
-        '/pages' =>
-            'Admin\PagesController',
-        '/settings/templates' =>
-            'Admin\Settings\TemplatesController',
-        '/settings' =>
-            'Admin\SettingsController',
-        '/settings/templates/edit/{id}' =>
-            'Admin\Settings\Templates\EditController',
-    ]);
+    // dashboard
+    Route::get('/dashboard', 'DashboardController@index');
 
-    // Abort to prevent showing Public-Side
+    // pages
+    Route::get('/pages', 'PagesController@index');
+
+    // settings
+    Route::get('/settings', 'SettingsController@index');
+
+    // settings/templates
+    Route::resource('/settings/templates', 'Settings\TemplatesController');
+
+    // admin-side 404
     Route::fallback(function ($uri = null) {
         return abort(404);
     });

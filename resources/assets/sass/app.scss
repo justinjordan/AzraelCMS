@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 
-// Variables
 @import 'variables';
+@import 'login';
 
 .noscroll {
     margin: 0;
@@ -44,9 +44,6 @@ p {
 
 .breadcrumbs-nav {
     padding-left: 2rem;
-}
-
-#main-wrapper {
 }
 
 main {
