@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\NavigationItem;
 use App\Models\NavigationDivider;
+use Illuminate\Support\Facades\Auth;
 
 class AdminPanel
 {
@@ -11,6 +12,7 @@ class AdminPanel
 
     public function __construct()
     {
+        $this->user = Auth::user();
         $this->navigation = $this->getNavigation();
     }
 

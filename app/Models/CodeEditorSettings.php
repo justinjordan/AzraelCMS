@@ -9,7 +9,7 @@ class CodeEditorSettings extends Model
     public $table = 'editor_settings';
 
     protected $attributes = [
-        'theme'     => 'light',
+        'theme'     => 'default',
         'keymap'    => 'default',
     ];
 }

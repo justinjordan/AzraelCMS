@@ -61,9 +61,10 @@
 
         <script>
             /**
-             * Pass access token
+             * Pass user data to javascript
              */
             window.user = {
+                id: {{ $adminPanel->user->id }},
                 accessToken: "{{ session('accessToken', '') }}"
             };
 

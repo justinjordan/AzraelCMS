@@ -18,13 +18,22 @@
                 <h5>Theme</h5>
                 <p>
                     <label>
-                        <input type="radio" v-model="editorOptions.theme" value="default" checked />
+                        <input
+                            type="radio"
+                            v-model="editorOptions.theme"
+                            value="default"
+                            checked
+                        />
                         <span>Light</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="radio" v-model="editorOptions.theme" value="dracula" />
+                        <input
+                            type="radio"
+                            v-model="editorOptions.theme"
+                            value="dracula"
+                        />
                         <span>Dark</span>
                     </label>
                 </p>
@@ -48,13 +57,39 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import { codemirror } from 'vue-codemirror'
     import 'codemirror/lib/codemirror.css'
     import 'codemirror/theme/dracula.css'
     import 'codemirror/keymap/vim.js'
 
     export default {
+        data() {
+            return {
+                code: '',
+                editorOptions: {
+                    // codemirror options
+                    tabSize: 2,
+                    mode: 'text/html',
+                    theme: 'default',
+                    keyMap: 'default',
+                    line: true,
+                    lineNumbers: true,
+                }
+            }
+        },
+        watch: {
+            editorOptions: {
+                deep: true,
+                handler() {
+                    this.saveSettings()
+                }
+            }
+        },
         mounted() {
+            // load user settings
+            this.loadSettings()
+
             // init settings modal
             const modalEl = document.querySelector('#settings-modal')
             M.Modal.init(modalEl, {})
@@ -73,20 +108,6 @@
                 }, 2000)
             }
         },
-        data() {
-            return {
-                code: '',
-                editorOptions: {
-                    // codemirror options
-                    tabSize: 2,
-                    mode: 'text/html',
-                    theme: 'default',
-                    keyMap: 'default',
-                    line: true,
-                    lineNumbers: true,
-                }
-            }
-        },
         components: {
             codemirror
         },
@@ -98,6 +119,42 @@
         methods: {
             openSettings() {
                 this.settingsModal.open()
+            },
+            loadSettings() {
+                axios
+                    .get('/api/admin/settings/code-editor/' + user.id, {
+                        headers: {
+                            'Authorization': 'Bearer ' + user.accessToken
+                        }
+                    })
+                    .then(response => {
+                        const settings = response.data
+
+                        this.editorOptions.theme = settings.theme || 'default'
+                        this.editorOptions.keyMap = settings.keymap || 'default'
+                    })
+                    .catch(err => {
+                        console.error(err.message)
+                    })
+            },
+            saveSettings() {
+                axios
+                    .put('/api/admin/settings/code-editor/' + user.id, {
+                        _method: 'PUT',
+                        theme: this.editorOptions.theme,
+                        keymap: this.editorOptions.keyMap,
+                    }, {
+                        headers: {
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer ' + user.accessToken
+                        }
+                    })
+                    .then(response => {
+                        console.log(response)
+                    })
+                    .catch(err => {
+                        console.error(err.message)
+                    })
             }
         },
     }

@@ -29466,14 +29466,16 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_codemirror__ = __webpack_require__(29);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_codemirror___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_codemirror__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_codemirror_lib_codemirror_css__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_codemirror_lib_codemirror_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_codemirror_lib_codemirror_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_codemirror_theme_dracula_css__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_codemirror_theme_dracula_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_codemirror_theme_dracula_css__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_codemirror_keymap_vim_js__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_codemirror_keymap_vim_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_codemirror_keymap_vim_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(84);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_codemirror__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_codemirror___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_codemirror__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_codemirror_lib_codemirror_css__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_codemirror_lib_codemirror_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_codemirror_lib_codemirror_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_codemirror_theme_dracula_css__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_codemirror_theme_dracula_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_codemirror_theme_dracula_css__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_codemirror_keymap_vim_js__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_codemirror_keymap_vim_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_codemirror_keymap_vim_js__);
 //
 //
 //
@@ -29523,6 +29525,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -29530,7 +29542,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            code: '',
+            editorOptions: {
+                // codemirror options
+                tabSize: 2,
+                mode: 'text/html',
+                theme: 'default',
+                keyMap: 'default',
+                line: true,
+                lineNumbers: true
+            }
+        };
+    },
+
+    watch: {
+        editorOptions: {
+            deep: true,
+            handler: function handler() {
+                this.saveSettings();
+            }
+        }
+    },
     mounted: function mounted() {
+        // load user settings
+        this.loadSettings();
+
         // init settings modal
         var modalEl = document.querySelector('#settings-modal');
         M.Modal.init(modalEl, {});
@@ -29549,23 +29587,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }, 2000);
         };
     },
-    data: function data() {
-        return {
-            code: '',
-            editorOptions: {
-                // codemirror options
-                tabSize: 2,
-                mode: 'text/html',
-                theme: 'default',
-                keyMap: 'default',
-                line: true,
-                lineNumbers: true
-            }
-        };
-    },
 
     components: {
-        codemirror: __WEBPACK_IMPORTED_MODULE_0_vue_codemirror__["codemirror"]
+        codemirror: __WEBPACK_IMPORTED_MODULE_1_vue_codemirror__["codemirror"]
     },
     computed: {
         codemirror: function codemirror() {
@@ -29575,6 +29599,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         openSettings: function openSettings() {
             this.settingsModal.open();
+        },
+        loadSettings: function loadSettings() {
+            var _this = this;
+
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get('/api/admin/settings/code-editor/' + user.id, {
+                headers: {
+                    'Authorization': 'Bearer ' + user.accessToken
+                }
+            }).then(function (response) {
+                var settings = response.data;
+
+                _this.editorOptions.theme = settings.theme || 'default';
+                _this.editorOptions.keyMap = settings.keymap || 'default';
+            }).catch(function (err) {
+                console.error(err.message);
+            });
+        },
+        saveSettings: function saveSettings() {
+            __WEBPACK_IMPORTED_MODULE_0_axios___default.a.put('/api/admin/settings/code-editor/' + user.id, {
+                _method: 'PUT',
+                theme: this.editorOptions.theme,
+                keymap: this.editorOptions.keyMap
+            }, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + user.accessToken
+                }
+            }).then(function (response) {
+                console.log(response);
+            }).catch(function (err) {
+                console.error(err.message);
+            });
         }
     }
 });
