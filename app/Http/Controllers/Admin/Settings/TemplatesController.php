@@ -18,6 +18,8 @@ class TemplatesController extends Controller
 
     public function edit($id)
     {
-        return view('settings.templates.edit');
+        return view('settings.templates.edit', [
+            'templateId'    => $id,
+        ]);
     }
 }

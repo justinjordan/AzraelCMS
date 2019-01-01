@@ -14,4 +14,5 @@
 @endphp
 
 @section('content')
+    <templates-panel></templates-panel>
 @endsection

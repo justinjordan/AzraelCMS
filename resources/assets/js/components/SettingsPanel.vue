@@ -28,7 +28,6 @@
 
 <script>
     import axios from 'axios'
-    import Settings from '../providers/settings.js'
 
     export default {
         created() {
@@ -79,7 +78,6 @@
         background: none;
         outline: none;
         border: none;
-        background-color: white;
         text-align: center;
         color: black;
     }

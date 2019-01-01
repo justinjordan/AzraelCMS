@@ -21,10 +21,10 @@
         
         @yield('head')
     </head>
-    <body>
+    <body class="login-page">
         <form class="login-form card" action="" method="POST">
             @csrf
-            <div class="card-content red white-text">
+            <div class="card-content">
                 <span class="card-title">Sign In</span>
             </div>
             <div class="card-content">
@@ -44,7 +44,7 @@
                 </label>
 
                 <div class="row">
-                    <button type="submit" class="btn red right">Sign In</button>
+                    <button type="submit" class="btn right">Sign In</button>
                 </div>
             </div>
         </form>

@@ -13,17 +13,12 @@
         <!-- Reset Styles - Loads first -->
         <link href="/css/reset.css" rel="stylesheet">
 
-        <!-- Include Material -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" rel="stylesheet">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
-
         <!-- Include Compiled Styles -->
         <link href="/css/app.css" rel="stylesheet">
         
         @yield('head')
     </head>
-    <body>
+    <body class="@yield('body-class')">
         <div id="navbar" class="navbar-fixed">
             <nav>
                 <div class="nav-wrapper">
@@ -77,7 +72,6 @@
             });
         </script>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
         <script src="/js/app.js"></script>
     </body>
 </html>

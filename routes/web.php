@@ -11,7 +11,7 @@ Route::group([
     'middleware'    => 'auth',
 ], function () {
     // redirect to dashboard
-    Route::redirect('/', '/dashboard');
+    Route::redirect('/', '/admin/dashboard');
 
     // dashboard
     Route::get('/dashboard', 'DashboardController@index');

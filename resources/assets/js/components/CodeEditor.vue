@@ -1,6 +1,6 @@
 <template>
     <div class="code-editor">
-        <codemirror v-model="code" :options="editorOptions" ref="cm"></codemirror>
+        <codemirror v-model="content" :options="editorOptions" ref="cm"></codemirror>
         <div class="code-editor__actions">
             <button type="button" class="btn-floating btn-small" v-on:click="openSettings">
                 <i class="material-icons">tune</i>
@@ -32,7 +32,7 @@
                         <input
                             type="radio"
                             v-model="editorOptions.theme"
-                            value="dracula"
+                            value="blackboard"
                         />
                         <span>Dark</span>
                     </label>
@@ -41,13 +41,22 @@
                 <h5>Key Map</h5>
                 <p>
                     <label>
-                        <input type="radio" v-model="editorOptions.keyMap" value="default" checked />
+                        <input
+                            type="radio"
+                            v-model="editorOptions.keyMap"
+                            value="default"
+                            checked
+                        />
                         <span>Normal</span>
                     </label>
                 </p>
                 <p>
                     <label>
-                        <input type="radio" v-model="editorOptions.keyMap" value="vim" />
+                        <input
+                            type="radio"
+                            v-model="editorOptions.keyMap"
+                            value="vim"
+                        />
                         <span>Vim</span>
                     </label>
                 </p>
@@ -60,13 +69,17 @@
     import axios from 'axios';
     import { codemirror } from 'vue-codemirror'
     import 'codemirror/lib/codemirror.css'
-    import 'codemirror/theme/dracula.css'
+    import 'codemirror/theme/blackboard.css'
     import 'codemirror/keymap/vim.js'
 
     export default {
+        props: [
+            'code',
+            'onSave',
+        ],
         data() {
             return {
-                code: '',
+                content: '',
                 editorOptions: {
                     // codemirror options
                     tabSize: 2,
@@ -84,7 +97,14 @@
                 handler() {
                     this.saveSettings()
                 }
-            }
+            },
+            code(newVal, oldVal) {
+                if (newVal === oldVal) {
+                    return
+                }
+
+                this.content = this.code
+            },
         },
         mounted() {
             // load user settings
@@ -100,12 +120,7 @@
             M.FormSelect.init(inputEls, {});
 
             this.codemirror.save = () => {
-                const toast = M.toast({html: 'Saving...'})
-
-                setTimeout(() => {
-                    toast.dismiss()
-                    M.toast({html: 'Saved!'})
-                }, 2000)
+                this.save()
             }
         },
         components: {
@@ -114,14 +129,19 @@
         computed: {
             codemirror() {
                 return this.$refs.cm.codemirror
-            }
+            },
         },
         methods: {
+            save() {
+                if (typeof this.onSave === 'function') {
+                    this.onSave(this.content)
+                }
+            },
             openSettings() {
                 this.settingsModal.open()
             },
             loadSettings() {
-                axios
+                return axios
                     .get('/api/admin/settings/code-editor/' + user.id, {
                         headers: {
                             'Authorization': 'Bearer ' + user.accessToken
@@ -133,12 +153,9 @@
                         this.editorOptions.theme = settings.theme || 'default'
                         this.editorOptions.keyMap = settings.keymap || 'default'
                     })
-                    .catch(err => {
-                        console.error(err.message)
-                    })
             },
             saveSettings() {
-                axios
+                return axios
                     .put('/api/admin/settings/code-editor/' + user.id, {
                         _method: 'PUT',
                         theme: this.editorOptions.theme,
@@ -148,12 +165,6 @@
                             'Accept': 'application/json',
                             'Authorization': 'Bearer ' + user.accessToken
                         }
-                    })
-                    .then(response => {
-                        console.log(response)
-                    })
-                    .catch(err => {
-                        console.error(err.message)
                     })
             }
         },
@@ -173,7 +184,7 @@
     .code-editor__actions {
         position: absolute;
         right: 1rem;
-        bottom: 1rem;
+        top: 1rem;
         z-index: 999;
     }
 </style>

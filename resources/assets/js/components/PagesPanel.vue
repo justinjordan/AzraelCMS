@@ -56,10 +56,4 @@
         min-height: 100vh;
         padding: 2rem;
     }
-
-    .actions {
-        position: absolute;
-        top: 1.2rem;
-        right: 1rem;
-    }
 </style>
