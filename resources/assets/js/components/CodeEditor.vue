@@ -66,7 +66,8 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import axios from 'axios'
+    import hotkeys from 'hotkeys-js'
     import { codemirror } from 'vue-codemirror'
     import 'codemirror/lib/codemirror.css'
     import 'codemirror/theme/blackboard.css'
@@ -88,6 +89,10 @@
                     keyMap: 'default',
                     line: true,
                     lineNumbers: true,
+                    extraKeys: {
+                        'Ctrl-S': this.save,
+                        'Cmd-S': this.save,
+                    },
                 }
             }
         },
@@ -95,6 +100,11 @@
             editorOptions: {
                 deep: true,
                 handler() {
+                    if (this.ignoreSettingsChange) {
+                        this.ignoreSettingsChange = false
+                        return
+                    }
+
                     this.saveSettings()
                 }
             },
@@ -119,9 +129,16 @@
             const inputEls = modalEl.querySelectorAll('select');
             M.FormSelect.init(inputEls, {});
 
+            // setup vim save
             this.codemirror.save = () => {
                 this.save()
             }
+
+            // setup key combo save
+            hotkeys('ctrl+s,cmd+s', (event, handler) => {
+                event.preventDefault()
+                this.save()
+            })
         },
         components: {
             codemirror
@@ -150,6 +167,7 @@
                     .then(response => {
                         const settings = response.data
 
+                        this.ignoreSettingsChange = true
                         this.editorOptions.theme = settings.theme || 'default'
                         this.editorOptions.keyMap = settings.keymap || 'default'
                     })
