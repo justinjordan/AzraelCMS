@@ -53103,7 +53103,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.code-editor {\n    position: relative;\n}\n.code-editor .vue-codemirror,\n.code-editor .CodeMirror {\n    height: 100%;\n}\n.code-editor__actions {\n    position: absolute;\n    right: 1rem;\n    top: 1rem;\n    z-index: 999;\n}\n", ""]);
+exports.push([module.i, "\n.code-editor {\n    position: relative;\n}\n.code-editor .vue-codemirror,\n.code-editor .CodeMirror {\n    height: 100%;\n}\n.code-editor__status {\n    position: absolute;\n    right: 1rem;\n    bottom: 1rem;\n    z-index: 999;\n}\n.code-editor__status span {\n    display: inline-block;\n    padding: 0.2rem 0.5rem;\n}\n.code-editor__actions {\n    position: absolute;\n    right: 1rem;\n    top: 1rem;\n    z-index: 999;\n}\n", ""]);
 
 // exports
 
@@ -53125,6 +53125,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_codemirror_theme_blackboard_css___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_codemirror_theme_blackboard_css__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_codemirror_keymap_vim_js__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_codemirror_keymap_vim_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_codemirror_keymap_vim_js__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -53201,6 +53211,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 text: 'Vim',
                 value: 'vim'
             }],
+            editorMode: 'normal',
             editorOptions: {
                 // codemirror options
                 tabSize: 2,
@@ -53248,6 +53259,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.save();
         };
 
+        // watch vim mode
+        this.codemirror.on('vim-mode-change', function (event) {
+            _this.editorMode = event.mode;
+        });
+
         // setup key combo save
         Object(__WEBPACK_IMPORTED_MODULE_1_hotkeys_js__["a" /* default */])('ctrl+s,cmd+s', function (event, handler) {
             event.preventDefault();
@@ -53261,6 +53277,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     computed: {
         codemirror: function codemirror() {
             return this.$refs.cm.codemirror;
+        },
+        vimInsertMode: function vimInsertMode() {
+            return this.editorMode === 'insert' && this.editorOptions.keyMap === 'vim';
         }
     },
     methods: {
@@ -53296,6 +53315,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     'Authorization': 'Bearer ' + user.accessToken
                 }
             });
+        },
+        vimChange: function vimChange() {
+            console.log(arguments);
         }
     }
 });
@@ -59929,6 +59951,7 @@ var render = function() {
       _c("codemirror", {
         ref: "cm",
         attrs: { options: _vm.editorOptions },
+        on: { vimModeChange: _vm.vimChange },
         model: {
           value: _vm.content,
           callback: function($$v) {
@@ -59937,6 +59960,12 @@ var render = function() {
           expression: "content"
         }
       }),
+      _vm._v(" "),
+      _c("div", { staticClass: "code-editor__status" }, [
+        _vm.vimInsertMode
+          ? _c("span", { staticClass: "info" }, [_vm._v("-- INSERT --")])
+          : _vm._e()
+      ]),
       _vm._v(" "),
       _c(
         "div",

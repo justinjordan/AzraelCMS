@@ -1,6 +1,16 @@
 <template>
     <div class="code-editor">
-        <codemirror v-model="content" :options="editorOptions" ref="cm"></codemirror>
+        <codemirror
+            v-model="content"
+            :options="editorOptions"
+            v-on:vimModeChange="vimChange"
+            ref="cm"
+        ></codemirror>
+
+        <div class="code-editor__status">
+            <span class="info" v-if="vimInsertMode">-- INSERT --</span>
+        </div>
+
         <div class="code-editor__actions">
             <!-- Setting Dialog -->
             <v-dialog width="300" v-model="settingsDialog">
@@ -82,6 +92,7 @@
                         value: 'vim',
                     },
                 ],
+                editorMode: 'normal',
                 editorOptions: {
                     // codemirror options
                     tabSize: 2,
@@ -126,6 +137,11 @@
                 this.save()
             }
 
+            // watch vim mode
+            this.codemirror.on('vim-mode-change', (event) => {
+                this.editorMode = event.mode
+            })
+
             // setup key combo save
             hotkeys('ctrl+s,cmd+s', (event, handler) => {
                 event.preventDefault()
@@ -138,6 +154,9 @@
         computed: {
             codemirror() {
                 return this.$refs.cm.codemirror
+            },
+            vimInsertMode() {
+                return this.editorMode === 'insert' && this.editorOptions.keyMap === 'vim'
             },
         },
         methods: {
@@ -174,7 +193,10 @@
                             'Authorization': 'Bearer ' + user.accessToken
                         }
                     })
-            }
+            },
+            vimChange() {
+                console.log(arguments)
+            },
         },
     }
 </script>
@@ -187,6 +209,17 @@
     .code-editor .vue-codemirror,
     .code-editor .CodeMirror {
         height: 100%;
+    }
+
+    .code-editor__status {
+        position: absolute;
+        right: 1rem;
+        bottom: 1rem;
+        z-index: 999;
+    }
+    .code-editor__status span {
+        display: inline-block;
+        padding: 0.2rem 0.5rem;
     }
 
     .code-editor__actions {
