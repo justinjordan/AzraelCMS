@@ -6,29 +6,11 @@ Route::get('/admin/signout', 'Admin\LoginController@logout');
 
 // admin side routes
 Route::group([
-    'namespace'     => 'Admin',
     'prefix'        => 'admin',
     'middleware'    => 'auth',
 ], function () {
-    // redirect to dashboard
-    Route::redirect('/', '/admin/dashboard');
-
-    // dashboard
-    Route::get('/dashboard', 'DashboardController@index');
-
-    // pages
-    Route::get('/pages', 'PagesController@index');
-
-    // settings
-    Route::get('/settings', 'SettingsController@index');
-
-    // settings/templates
-    Route::resource('/settings/templates', 'Settings\TemplatesController');
-
-    // admin-side 404
-    Route::fallback(function ($uri = null) {
-        return abort(404);
-    });
+    Route::any('/{any?}', 'AdminController@index');
+    Route::fallback('AdminController@index');
 });
 
 // public side catch all

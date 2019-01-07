@@ -35,7 +35,7 @@ class LoginController extends Controller
 
         session(['accessToken' => $token]);
 
-        return redirect()->intended('/admin/dashboard');
+        return redirect()->intended('/admin');
     }
 
     public function logout()

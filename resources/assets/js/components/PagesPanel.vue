@@ -1,9 +1,5 @@
 <template>
     <div class="content">
-        <div class="actions">
-            <a href="/admin/pages/new" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-        </div>
-
         <table>
             <thead>
                 <tr>
@@ -27,6 +23,10 @@
                 </template>
             </tbody>
         </table>
+
+        <div class="fixed-action-btn">
+            <a href="/admin/pages/new" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+        </div>
     </div>
 </template>
 

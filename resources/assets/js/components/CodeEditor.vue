@@ -2,65 +2,46 @@
     <div class="code-editor">
         <codemirror v-model="content" :options="editorOptions" ref="cm"></codemirror>
         <div class="code-editor__actions">
-            <button type="button" class="btn-floating btn-small" v-on:click="openSettings">
-                <i class="material-icons">tune</i>
-            </button>
-        </div>
-
-        <div id="settings-modal" class="modal">
-            <div class="modal-content">
-                <button type="button" class="btn-flat modal-close right">
-                    <i class="material-icons">close</i>
-                </button>
-
-                <h4>Editor Settings</h4>
-
-                <h5>Theme</h5>
-                <p>
-                    <label>
-                        <input
-                            type="radio"
+            <!-- Setting Dialog -->
+            <v-dialog width="300" v-model="settingsDialog">
+                <v-btn
+                    fab small
+                    slot="activator"
+                >
+                    <v-icon>tune</v-icon>
+                </v-btn>
+                <v-card>
+                    <v-card-title
+                        primary-title
+                        class="headline blue white--text"
+                    >
+                        Editor Settings
+                    </v-card-title>
+                    <v-card-text>
+                        <!-- Theme -->
+                        <v-select
+                            label="Theme"
+                            :items="themeOptions"
                             v-model="editorOptions.theme"
-                            value="default"
-                            checked
-                        />
-                        <span>Light</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input
-                            type="radio"
-                            v-model="editorOptions.theme"
-                            value="blackboard"
-                        />
-                        <span>Dark</span>
-                    </label>
-                </p>
+                        ></v-select>
 
-                <h5>Key Map</h5>
-                <p>
-                    <label>
-                        <input
-                            type="radio"
+                        <!-- Key Map -->
+                        <v-select
+                            label="Key Map"
+                            :items="keyMapOptions"
                             v-model="editorOptions.keyMap"
-                            value="default"
-                            checked
-                        />
-                        <span>Normal</span>
-                    </label>
-                </p>
-                <p>
-                    <label>
-                        <input
-                            type="radio"
-                            v-model="editorOptions.keyMap"
-                            value="vim"
-                        />
-                        <span>Vim</span>
-                    </label>
-                </p>
-            </div>
+                        ></v-select>
+                    </v-card-text>
+
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+
+                        <v-btn
+                            @click="settingsDialog = false"
+                        >Close</v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
         </div>
     </div>
 </template>
@@ -81,6 +62,27 @@
         data() {
             return {
                 content: '',
+                settingsDialog: false,
+                themeOptions: [
+                    {
+                        text: 'Light',
+                        value: 'default',
+                    },
+                    {
+                        text: 'Dark',
+                        value: 'blackboard',
+                    },
+                ],
+                keyMapOptions: [
+                    {
+                        text: 'Normal',
+                        value: 'default',
+                    },
+                    {
+                        text: 'Vim',
+                        value: 'vim',
+                    },
+                ],
                 editorOptions: {
                     // codemirror options
                     tabSize: 2,
@@ -119,15 +121,6 @@
         mounted() {
             // load user settings
             this.loadSettings()
-
-            // init settings modal
-            const modalEl = document.querySelector('#settings-modal')
-            M.Modal.init(modalEl, {})
-            this.settingsModal = M.Modal.getInstance(modalEl)
-
-            // init inputs
-            const inputEls = modalEl.querySelectorAll('select');
-            M.FormSelect.init(inputEls, {});
 
             // setup vim save
             this.codemirror.save = () => {

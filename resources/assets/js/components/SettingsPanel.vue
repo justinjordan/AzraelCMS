@@ -1,35 +1,23 @@
 <template>
-    <div class="content">
-        <div class="preloader-wrapper big active" v-if="loading">
-            <div class="spinner-layer spinner-blue-only">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-        </div>
-        
-        <ul v-if="!loading">
-            <p class="error" v-if="error">{{ error }}</p>
-            <li class="category" v-for="(category, i) in categories" :key="i">
-                <a class="category__btn" :href="category.href">
-                    <div class="category__icon">
-                        <i class="material-icons">{{ category.icon }}</i>
-                    </div>
-                    <span class="category__label">{{ category.label }}</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+    <v-layout justify-start align-start>
+        <settings-icon
+            v-for="(category, i) in categories"
+            :key="i"
+            :icon="category.icon"
+            :label="category.label"
+            :to="category.href"
+        ></settings-icon>
+    </v-layout>
 </template>
 
 <script>
     import axios from 'axios'
+    import SettingsIcon from './SettingsIcon'
 
     export default {
+        components: {
+            SettingsIcon
+        },
         created() {
             axios.get('/api/admin/settings/categories', {
                 headers: {

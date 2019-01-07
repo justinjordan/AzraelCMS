@@ -14,6 +14,7 @@ Route::group([
     ],
 ], function () {
     Route::apiResources([
+        '/navigation'            => 'NavigationAPI',
         '/pages'                 => 'PagesAPI',
         '/settings/categories'   => 'Settings\CategoryAPI',
         '/settings/code-editor'  => 'Settings\CodeEditorAPI',

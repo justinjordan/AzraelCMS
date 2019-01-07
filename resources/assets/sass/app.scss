@@ -3,69 +3,69 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 
 @import 'variables';
-@import '~materialize-css/sass/materialize.scss';
 
-@import 'defaults';
+// @import 'defaults';
 @import 'login';
 
-.noscroll {
-    margin: 0;
-    height: 100%;
-    overflow: hidden
-}
+// .noscroll {
+//     margin: 0;
+//     height: 100%;
+//     overflow: hidden
+// }
 
-h1 {
-    margin: 1.2em 0;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 2em;
-    font-weight: bold;
-}
+// h1 {
+//     margin: 1.2em 0;
+//     font-family: 'Nunito Sans', sans-serif;
+//     font-size: 2em;
+//     font-weight: bold;
+// }
 
-p {
-    line-height: 150%;
-}
+// p {
+//     line-height: 150%;
+// }
 
-#navbar {
-    display: block;
-}
+// #navbar {
+//     display: block;
+// }
 
-#sidebar .logo-wrapper {
-    padding: 0.5rem 0;
-    text-align: center;
-}
+// #sidebar .logo-wrapper {
+//     padding: 0.5rem 0;
+//     text-align: center;
+// }
 
-#sidebar .logo-wrapper .logo {
-    width: 10em;
-    height: auto;
-}
+// #sidebar .logo-wrapper .logo {
+//     width: 10em;
+//     height: auto;
+// }
 
-.breadcrumbs-nav {
-    padding-left: 2rem;
-}
+// .breadcrumbs-nav {
+//     padding-left: 2rem;
+// }
 
-main {
-    position: absolute;
-    top: 64px; right: 0; left: 0;
-    min-height: 100vh;
-    min-height: calc(100vh - 64px);
-}
+// main {
+//     position: absolute;
+//     top: 64px; right: 0; left: 0;
+//     min-height: 100vh;
+//     min-height: calc(100vh - 64px);
+// }
 
-@media only screen and (min-width : 992px) {
+// @media only screen and (min-width : 992px) {
 
-    #main-wrapper {
-        margin-left: 300px;
-    }
+//     #main-wrapper {
+//         margin-left: 300px;
+//     }
 
-    main {
-        left: 300px;
-        top: 0;
-        width: calc(100% - 300px);
-        min-height: 100vh;
-    }
+//     main {
+//         left: 300px;
+//         top: 0;
+//         width: calc(100% - 300px);
+//         min-height: 100vh;
+//     }
 
-    #navbar {
-        display: none;
-    }
-}
+//     #navbar {
+//         display: none;
+//     }
+// }
