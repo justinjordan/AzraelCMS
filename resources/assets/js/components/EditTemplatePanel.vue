@@ -2,7 +2,7 @@
     <div class="editor-container">
         <CodeEditor
             :code="code"
-            :onSave="saveTemplate"
+            @save="saveTemplate"
         ></CodeEditor>
 
         <v-snackbar
@@ -37,7 +37,25 @@
             this.templateId = this.$route.params.templateId
 
             // load template
-            this.loadTemplate()
+            this.loadTemplate().then(template => {
+                // Set breadcrumbs
+                this.$store.commit('setBreadcrumbs', [
+                    {
+                        text: 'Settings',
+                        to: '/admin/settings',
+                        exact: true,
+                    },
+                    {
+                        text: 'Templates',
+                        to: '/admin/settings/templates',
+                        exact: true,
+                    },
+                    {
+                        text: 'Edit (' + template.name + ')',
+                        disabled: true,
+                    },
+                ])
+            })
         },
         data() {
             return {
@@ -63,6 +81,7 @@
                     })
                     .then(response => {
                         this.code = response.data.content
+                        return response.data
                     })
                     .catch(err => {
                         console.error(err.message)

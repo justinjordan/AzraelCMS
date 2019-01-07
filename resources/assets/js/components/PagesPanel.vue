@@ -1,49 +1,25 @@
 <template>
-    <div class="content">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <template v-if="!pages">
-                    <tr>
-                        <td colspan="3"><em>No pages.</em></td>
-                    </tr>
-                </template>
-                <template v-else>
-                    <tr v-for="page in pages" v-bind:key="page.id">
-                        <td><a :href="'/admin/pages/edit/' + page.id">{{ page.name }}</a></td>
-                        <td>{{ page.type }}</td>
-                        <td>{{ page.status }}</td>
-                    </tr>
-                </template>
-            </tbody>
-        </table>
-
-        <div class="fixed-action-btn">
-            <a href="/admin/pages/new" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
-        </div>
-    </div>
+    <v-layout>
+        TODO: create pages panel
+    </v-layout>
 </template>
 
 <script>
     module.exports = {
-        data: function() {
+        created() {
+            // Set breadcrumbs
+            this.$store.commit('setBreadcrumbs', [
+                {
+                    text: 'Pages',
+                    disabled: true,
+                },
+            ])
+        },
+        data() {
             return {
-                pages: [
-                    {
-                        id: 1,
-                        name: "Test Page",
-                        type: "Test",
-                        status: "Active"
-                    }
-                ]
-            };
-        }
+                pages: []
+            }
+        },
     }
 </script>
 

@@ -69,29 +69,7 @@
         },
         computed: {
             breadcrumbs() {
-                const pathParts = this.$route.path.split('/')
-                let currentPath = ''
-                const crumbs = [];
-
-                for (var i = 0, l = pathParts.length; i < l; i++) {
-                    let part = pathParts[i]
-                    currentPath += part ? '/' + part : ''
-
-                    if (!part || part === 'admin') {
-                        continue
-                    }
-
-                    let label = part.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())
-
-                    crumbs.push({
-                        text: label,
-                        to: currentPath,
-                        disabled: i === l-1,
-                        exact: true,
-                    })
-                }
-
-                return crumbs
+                return this.$store.state.breadcrumbs
             },
         },
         methods: {

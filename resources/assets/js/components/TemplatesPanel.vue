@@ -179,8 +179,8 @@
                         value: 'active',
                     },
                     {
-                        text: 'Edit',
-                        value: 'edit',
+                        text: 'Modify',
+                        value: 'modify',
                     },
                 ],
                 templateTypes: [
@@ -198,14 +198,18 @@
             this.loadTemplates()
         },
         created() {
-            this.$store.commit('addBreadcrumb', {
-                text    : 'Settings',
-                to      : '/admin/settings',
-            })
-            this.$store.commit('addBreadcrumb', {
-                text    : 'Templates',
-                to      : '/admin/settings/templates',
-            })
+            // Set breadcrumbs
+            this.$store.commit('setBreadcrumbs', [
+                {
+                    text: 'Settings',
+                    to: '/admin/settings',
+                    exact: true,
+                },
+                {
+                    text: 'Templates',
+                    disabled: true,
+                },
+            ])
         },
         destroyed() {
             this.$store.commit('clearBreadcrumbs')

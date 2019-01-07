@@ -19,6 +19,14 @@
             SettingsIcon
         },
         created() {
+            // Set breadcrumbs
+            this.$store.commit('setBreadcrumbs', [
+                {
+                    text: 'Settings',
+                    disabled: true,
+                },
+            ])
+
             axios.get('/api/admin/settings/categories', {
                 headers: {
                     'Authorization': 'Bearer ' + user.accessToken

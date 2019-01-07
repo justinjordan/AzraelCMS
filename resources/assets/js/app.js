@@ -19,7 +19,12 @@ import EditTemplatePanel from './components/EditTemplatePanel.vue'
 
 const store = new Vuex.Store({
   state: {
-    //
+    breadcrumbs: [],
+  },
+  mutations: {
+    setBreadcrumbs(state, breadcrumbs) {
+      state.breadcrumbs = breadcrumbs
+    }
   },
 })
 

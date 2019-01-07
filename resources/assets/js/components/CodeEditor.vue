@@ -57,7 +57,6 @@
     export default {
         props: [
             'code',
-            'onSave',
         ],
         data() {
             return {
@@ -143,9 +142,7 @@
         },
         methods: {
             save() {
-                if (typeof this.onSave === 'function') {
-                    this.onSave(this.content)
-                }
+                this.$emit('save', this.content)
             },
             openSettings() {
                 this.settingsModal.open()
